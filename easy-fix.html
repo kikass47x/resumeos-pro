@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Fix - AI Resume Enhancer | ResumeOS Pro</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="navbar"></div>
+    
+    <main class="container">
+        <div class="page-header">
+            <div class="ai-badge">
+                <i class="fas fa-brain"></i>
+                AI POWERED
+            </div>
+            <h1>Easy Fix <span class="gradient-text">Resume Enhancer</span></h1>
+            <p class="page-subtitle">Upload your resume and job description. Get AI-powered improvements instantly.</p>
+        </div>
+        
+        <!-- API Key Setup -->
+        <div class="api-section" id="apiSection">
+            <div class="api-card">
+                <div class="api-header">
+                    <i class="fas fa-key"></i>
+                    <h3>OpenAI API Key Required</h3>
+                </div>
+                <p>Enter your OpenAI API key to enable AI enhancements. Your key is stored locally and never leaves your browser.</p>
+                <div class="api-input-group">
+                    <input type="password" id="apiKey" placeholder="sk-..." class="api-input">
+                    <button onclick="saveAPIKey()" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Key
+                    </button>
+                </div>
+                <p class="small-text">
+                    <i class="fas fa-info-circle"></i>
+                    Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI Platform</a>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Upload Section -->
+        <div class="upload-section">
+            <div class="upload-grid">
+                <div class="upload-card" id="resumeUpload">
+                    <div class="upload-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Your Resume</h3>
+                    <p>Upload your resume (PDF, TXT, DOCX) or paste text</p>
+                    
+                    <div class="upload-options">
+                        <button class="upload-option-btn" onclick="document.getElementById('fileInput').click()">
+                            <i class="fas fa-cloud-upload-alt"></i> Upload File
+                        </button>
+                        <button class="upload-option-btn" onclick="showTextInput()">
+                            <i class="fas fa-paste"></i> Paste Text
+                        </button>
+                    </div>
+                    
+                    <input type="file" id="fileInput" accept=".pdf,.txt,.docx" hidden>
+                    
+                    <div id="fileInfo" class="file-info"></div>
+                    
+                    <div id="textInputContainer" class="text-input-container" style="display: none;">
+                        <textarea id="resumeText" placeholder="Paste your resume text here..." rows="6"></textarea>
+                        <button class="btn btn-small" onclick="useTextResume()">Use This Text</button>
+                    </div>
+                </div>
+                
+                <div class="upload-card">
+                    <div class="upload-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Job Description</h3>
+                    <p>Paste the job description you're applying for</p>
+                    
+                    <textarea id="jobDescription" placeholder="Paste the full job description here..." rows="10"></textarea>
+                    
+                    <div class="char-counter">
+                        <span id="charCount">0</span> characters
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Enhancement Options -->
+        <div class="options-section">
+            <h3><i class="fas fa-sliders-h"></i> Enhancement Options</h3>
+            <div class="options-grid">
+                <label class="option-item">
+                    <input type="checkbox" id="optKeywords" checked>
+                    <div class="option-content">
+                        <div class="option-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="option-text">
+                            <h4>Keyword Optimization</h4>
+                            <p>Match resume with job description keywords</p>
+                        </div>
+                    </div>
+                </label>
+                
+                <label class="option-item">
+                    <input type="checkbox" id="optATS" checked>
+                    <div class="option-content">
+                        <div class="option-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="option-text">
+                            <h4>ATS Compliance</h4>
+                            <p>Optimize for Applicant Tracking Systems</p>
+                        </div>
+                    </div>
+                </label>
+                
+                <label class="option-item">
+                    <input type="checkbox" id="optSkills">
+                    <div class="option-content">
+                        <div class="option-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="option-text">
+                            <h4>Skills Gap Analysis</h4>
+                            <p>Identify missing skills and suggest improvements</p>
+                        </div>
+                    </div>
+                </label>
+                
+                <label class="option-item">
+                    <input type="checkbox" id="optQuantify">
+                    <div class="option-content">
+                        <div class="option-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="option-text">
+                            <h4>Achievement Quantification</h4>
+                            <p>Add metrics and numbers to achievements</p>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Analyze Button -->
+        <div class="analyze-section">
+            <button class="analyze-btn" id="analyzeBtn" onclick="enhanceResume()">
+                <i class="fas fa-robot"></i>
+                <span class="btn-text">Enhance Resume with AI</span>
+                <span class="btn-subtext">Powered by GPT-4 Technology</span>
+            </button>
+            <p class="analyze-note">
+                <i class="fas fa-clock"></i> AI analysis takes 15-30 seconds
+            </p>
+        </div>
+        
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-header">
+                <h2><i class="fas fa-chart-line"></i> Enhancement Results</h2>
+                <div class="results-actions">
+                    <button class="btn btn-secondary" onclick="resetForm()">
+                        <i class="fas fa-redo"></i> Try Another
+                    </button>
+                    <button class="btn btn-primary" onclick="downloadResults()">
+                        <i class="fas fa-download"></i> Export Results
+                    </button>
+                </div>
+            </div>
+            
+            <div class="match-score-display">
+                <div class="score-card">
+                    <div class="score-circle" id="scoreCircle">
+                        <span class="score-value" id="matchScore">0%</span>
+                    </div>
+                    <div class="score-details">
+                        <h3>Overall Match Score</h3>
+                        <p id="matchFeedback">Analyzing your resume against job description...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="suggestions-container">
+                <h3><i class="fas fa-lightbulb"></i> AI Enhancement Suggestions</h3>
+                <div id="suggestionsList" class="suggestions-list">
+                    <!-- Suggestions will appear here -->
+                </div>
+            </div>
+            
+            <div class="enhanced-preview">
+                <h3><i class="fas fa-eye"></i> Enhanced Resume Preview</h3>
+                <div class="preview-content" id="previewContent">
+                    <!-- Enhanced content will appear here -->
+                </div>
+            </div>
+            
+            <div class="next-step">
+                <h3>Ready to apply?</h3>
+                <p>Take your enhanced resume to the next level with verified job opportunities</p>
+                <a href="finish-up.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-rocket"></i> Go to Finish Up
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <div id="footer"></div>
+    
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/openai-client.js"></script>
+    <script src="scripts/easy-fix.js"></script>
+    <script src="scripts/components.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadComponent('navbar', 'components/navbar.html');
+            loadComponent('footer', 'components/footer.html');
+            
+            // Check for saved API key
+            const savedKey = getItem('openai_key');
+            if (savedKey) {
+                document.getElementById('apiSection').style.display = 'none';
+            }
+            
+            // Character counter for job description
+            document.getElementById('jobDescription').addEventListener('input', function() {
+                document.getElementById('charCount').textContent = this.value.length;
+            });
+            
+            // File upload handling
+            document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+        });
+    </script>
+</body>
+</html>

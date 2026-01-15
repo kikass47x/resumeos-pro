@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finish Up - Smart Job Search | ResumeOS Pro</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="navbar"></div>
+    
+    <main class="container">
+        <div class="page-header">
+            <div class="safety-badge">
+                <i class="fas fa-shield-alt"></i>
+                SCAM PROTECTION ACTIVE
+            </div>
+            <h1>Finish Up <span class="gradient-text">Smart Job Search</span></h1>
+            <p class="page-subtitle">Find verified jobs with scam protection. Apply with one click using your enhanced resume.</p>
+        </div>
+        
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-card">
+                <div class="search-header">
+                    <h2><i class="fas fa-search"></i> Find Your Perfect Job</h2>
+                    <div class="search-stats">
+                        <span class="stat">
+                            <i class="fas fa-database"></i>
+                            <span id="totalJobs">1,250</span> Jobs
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-shield-alt"></i>
+                            <span id="verifiedJobs">980</span> Verified
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <div class="search-input-group">
+                        <div class="search-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <input type="text" id="searchInput" placeholder="Job title, skills, or company...">
+                    </div>
+                    
+                    <div class="search-input-group">
+                        <div class="search-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <input type="text" id="locationInput" placeholder="Region, city, or country...">
+                    </div>
+                    
+                    <button class="search-btn" onclick="searchJobs()">
+                        <i class="fas fa-bolt"></i> Search Jobs
+                    </button>
+                </div>
+                
+                <!-- Filters -->
+                <div class="filters-section">
+                    <h4><i class="fas fa-filter"></i> Filter Jobs</h4>
+                    <div class="filters-grid">
+                        <label class="filter-toggle">
+                            <input type="checkbox" id="remoteOnly">
+                            <span class="toggle-slider"></span>
+                            <span class="filter-label">
+                                <i class="fas fa-home"></i> Remote Jobs Only
+                            </span>
+                        </label>
+                        
+                        <label class="filter-toggle">
+                            <input type="checkbox" id="verifiedOnly" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="filter-label">
+                                <i class="fas fa-shield-alt"></i> Verified Jobs Only
+                            </span>
+                        </label>
+                        
+                        <div class="filter-select-group">
+                            <label>Job Type</label>
+                            <select id="jobType" class="filter-select">
+                                <option value="">Any Type</option>
+                                <option value="fulltime">Full-time</option>
+                                <option value="parttime">Part-time</option>
+                                <option value="contract">Contract</option>
+                                <option value="remote">Remote</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-select-group">
+                            <label>Experience Level</label>
+                            <select id="experienceLevel" class="filter-select">
+                                <option value="">Any Level</option>
+                                <option value="entry">Entry Level</option>
+                                <option value="mid">Mid Level (2-5 yrs)</option>
+                                <option value="senior">Senior (5+ yrs)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Job Results -->
+        <div class="jobs-section">
+            <div class="jobs-header">
+                <h3><i class="fas fa-briefcase"></i> Recommended Jobs</h3>
+                <div class="jobs-sort">
+                    <span>Sort by:</span>
+                    <select id="sortBy" onchange="searchJobs()">
+                        <option value="relevance">Relevance</option>
+                        <option value="date">Newest</option>
+                        <option value="salary">Salary (High to Low)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="jobs-container" id="jobsContainer">
+                <!-- Jobs will be loaded here -->
+                <div class="loading-jobs">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading verified jobs...</p>
+                </div>
+            </div>
+            
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No jobs match your search</h3>
+                <p>Try adjusting your filters or search terms</p>
+                <button class="btn btn-secondary" onclick="resetFilters()">
+                    <i class="fas fa-redo"></i> Reset Filters
+                </button>
+            </div>
+        </div>
+        
+        <!-- Application Manager -->
+        <div class="application-manager" id="applicationManager" style="display: none;">
+            <div class="app-manager-header">
+                <h3><i class="fas fa-paper-plane"></i> Application Manager</h3>
+                <button class="close-btn" onclick="closeApplicationManager()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="app-steps">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-info">
+                        <h4>Resume Selection</h4>
+                        <p>Choose enhanced resume</p>
+                    </div>
+                    <div class="step-status">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-info">
+                        <h4>Application Form</h4>
+                        <p>Auto-fill information</p>
+                    </div>
+                    <div class="step-status">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-info">
+                        <h4>Review & Submit</h4>
+                        <p>Final check and apply</p>
+                    </div>
+                    <div class="step-status">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-form" id="appForm">
+                <!-- Application form will be loaded here -->
+            </div>
+        </div>
+        
+        <!-- Safety Information -->
+        <div class="safety-info">
+            <div class="safety-header">
+                <h3><i class="fas fa-shield-alt"></i> How We Protect You</h3>
+                <p>Our verification system checks every job before showing it to you</p>
+            </div>
+            
+            <div class="safety-grid">
+                <div class="safety-item">
+                    <div class="safety-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h4>Source Verification</h4>
+                    <p>Check job source credibility and domain history</p>
+                </div>
+                
+                <div class="safety-item">
+                    <div class="safety-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h4>Company Validation</h4>
+                    <p>Verify company registration and online presence</p>
+                </div>
+                
+                <div class="safety-item">
+                    <div class="safety-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h4>Scam Detection</h4>
+                    <p>AI detects common scam patterns and red flags</p>
+                </div>
+                
+                <div class="safety-item">
+                    <div class="safety-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h4>Historical Analysis</h4>
+                    <p>Check company's job posting history and reviews</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <div id="footer"></div>
+    
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/finish-up.js"></script>
+    <script src="scripts/components.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadComponent('navbar', 'components/navbar.html');
+            loadComponent('footer', 'components/footer.html');
+            loadJobs(); // Initial load
+        });
+    </script>
+</body>
+</html>
