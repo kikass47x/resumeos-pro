@@ -1,0 +1,130 @@
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">🚀</span>
+            <span class="logo-text">ResumeOS <span class="logo-badge">PRO</span></span>
+        </a>
+        
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="easy-fix.html" class="nav-link">
+                <i class="fas fa-magic"></i>
+                <span>Easy Fix</span>
+            </a>
+            <a href="finish-up.html" class="nav-link">
+                <i class="fas fa-rocket"></i>
+                <span>Finish Up</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="fas fa-question-circle"></i>
+                <span>Help</span>
+            </a>
+        </div>
+        
+        <div class="nav-actions">
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <a href="easy-fix.html" class="btn btn-primary">
+                <i class="fas fa-play"></i>
+                Get Started
+            </a>
+        </div>
+        
+        <button class="mobile-toggle" id="mobileToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="mobile-link">
+            <i class="fas fa-home"></i>
+            Home
+        </a>
+        <a href="easy-fix.html" class="mobile-link">
+            <i class="fas fa-magic"></i>
+            Easy Fix
+        </a>
+        <a href="finish-up.html" class="mobile-link">
+            <i class="fas fa-rocket"></i>
+            Finish Up
+        </a>
+        <a href="#" class="mobile-link">
+            <i class="fas fa-chart-line"></i>
+            Analytics
+        </a>
+        <a href="#" class="mobile-link">
+            <i class="fas fa-question-circle"></i>
+            Help
+        </a>
+        <div class="mobile-divider"></div>
+        <a href="#" class="mobile-link">
+            <i class="fas fa-user"></i>
+            Sign In
+        </a>
+    </div>
+</nav>
+
+<style>
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--dark-light);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.mobile-menu.active {
+    display: block;
+}
+
+.mobile-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    color: var(--light);
+    text-decoration: none;
+    border-radius: 0.5rem;
+}
+
+.mobile-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 1rem 0;
+}
+
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--light);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .nav-links, .nav-actions {
+        display: none;
+    }
+    
+    .mobile-toggle {
+        display: block;
+    }
+}
+</style>
